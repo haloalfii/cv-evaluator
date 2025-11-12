@@ -5,7 +5,11 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node src/app.js"
+    "start": "node src/app.js",
+    "ingest:jobdesc": "node src/ingest/jobDescriptionIngest.js",
+    "ingest:casestudy": "node src/ingest/caseStudyBriefIngest.js",
+    "ingest:rubric": "node src/ingest/scoringRubricIngest.js",
+    "ingest:all": "npm run ingest:jobdesc && npm run ingest:casestudy && npm run ingest:rubric"
   },
   "keywords": [],
   "author": "",
