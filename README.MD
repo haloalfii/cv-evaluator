@@ -53,14 +53,19 @@ CHROMA_DB_URL=
 
 OPENAI_API_KEY=YOUR_OPENAI_API_KEY
 ```
+### 5. Run ChromaDB and Ingest Data
 
-### 5. Run the Server
+```bash
+npm run ingest:all
+```
+
+### 6. Run the Server
 
 ```bash
 npm run start
 ```
 
-### 6. Run the Worker
+### 7. Run the Worker
 
 ```bash
 npm run worker
