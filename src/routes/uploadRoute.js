@@ -74,8 +74,10 @@ router.post(
 
       saveUpload({
         id: uploadId,
-        cvPath: cvFile.path,
-        projectPath: projectFile.path,
+        cvId: result.cv.id,
+        cvPath: result.cv.path,
+        projectId: result.project.id,
+        projectPath: result.project.path,
       });
 
       // 🧠 Return consistent structure

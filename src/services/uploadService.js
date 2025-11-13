@@ -12,8 +12,8 @@ export async function handleUpload(cvFile, projectFile) {
     const projectId = `project-${uuidv4()}`;
 
     // Define folders
-    const cvFolder = path.join("src/uploads", "cv");
-    const projectFolder = path.join("src/uploads", "project");
+    const cvFolder = path.join(UPLOAD_BASE_PATH, "cv");
+    const projectFolder = path.join(UPLOAD_BASE_PATH, "project");
 
     // Ensure folders exist
     fs.mkdirSync(cvFolder, { recursive: true });

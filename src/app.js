@@ -2,6 +2,8 @@ import express from "express";
 import dotenv from "dotenv";
 import chromaClient from "./config/chroma.js";
 import uploadRouter from "./routes/uploadRoute.js";
+import evaluateRoute from "./routes/evaluationRoute.js";
+import resultRoute from "./routes/resultRoute.js";
 
 dotenv.config();
 
@@ -12,8 +14,12 @@ app.get("/", (req, res) => {
   res.json({ status: "ok", message: "AI CV Evaluator API (basic)" });
 });
 
+app.use(express.json());
+
 // Use upload router
 app.use("/", uploadRouter);
+app.use("/", evaluateRoute);
+app.use("/", resultRoute);
 
 (async () => {
   try {

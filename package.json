@@ -9,7 +9,8 @@
     "ingest:jobdesc": "node src/ingest/jobDescriptionIngest.js",
     "ingest:casestudy": "node src/ingest/caseStudyBriefIngest.js",
     "ingest:rubric": "node src/ingest/scoringRubricIngest.js",
-    "ingest:all": "npm run ingest:jobdesc && npm run ingest:casestudy && npm run ingest:rubric"
+    "ingest:all": "npm run ingest:jobdesc && npm run ingest:casestudy && npm run ingest:rubric",
+    "worker": "node src/queue/worker.js"
   },
   "keywords": [],
   "author": "",
