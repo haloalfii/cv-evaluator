@@ -7,43 +7,45 @@ const UPLOAD_BASE_PATH = "src/uploads";
 
 export async function handleUpload(cvFile, projectFile) {
   try {
-    // 🆔 Generate one unique ID for both files
-    const uploadId = uuidv4();
+    // 🆔 Generate unique IDs
+    const cvId = `cv-${uuidv4()}`;
+    const projectId = `project-${uuidv4()}`;
 
-    // Define folder structure
-    const uploadFolder = path.join(UPLOAD_BASE_PATH, uploadId);
-    const cvFolder = path.join(uploadFolder, "cv");
-    const projectFolder = path.join(uploadFolder, "project");
+    // Define folders
+    const cvFolder = path.join("src/uploads", "cv");
+    const projectFolder = path.join("src/uploads", "project");
 
     // Ensure folders exist
     fs.mkdirSync(cvFolder, { recursive: true });
     fs.mkdirSync(projectFolder, { recursive: true });
 
-    // Move uploaded files into their folders
-    const cvDest = path.join(cvFolder, cvFile.originalname);
-    const projectDest = path.join(projectFolder, projectFile.originalname);
+    // Create new filenames with IDs
+    const cvFilename = `${cvId}-${cvFile.originalname}`;
+    const projectFilename = `${projectId}-${projectFile.originalname}`;
 
+    // Destination paths
+    const cvDest = path.join(cvFolder, cvFilename);
+    const projectDest = path.join(projectFolder, projectFilename);
+
+    // Move files to their folders
     fs.renameSync(cvFile.path, cvDest);
     fs.renameSync(projectFile.path, projectDest);
 
-    // Parse text from PDF files
+    // Parse PDFs using PDFParse
     const cvBuffer = fs.readFileSync(cvDest);
     const projectBuffer = fs.readFileSync(projectDest);
 
-    const cvText = new PDFParse(new Uint8Array(cvBuffer));
-    const projectText = new PDFParse(new Uint8Array(projectBuffer));
-
-    const cvResult = await cvText.getText();
-    const projectResult = await projectText.getText();
-
-    // Return combined upload object with 1 ID
+    // Return structured info
     return {
-      id: uploadId,
       cv: {
-        filename: cvFile.originalname,
+        id: cvId,
+        filename: cvFilename,
+        path: cvDest
       },
       project: {
-        filename: projectFile.originalname,
+        id: projectId,
+        filename: projectFilename,
+        path: projectDest
       },
     };
   } catch (err) {
